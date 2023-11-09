@@ -7,7 +7,6 @@ struct Node
 {
     Type data;
     Node *link;
-    friend ostream &operator<<(ostream &os, const Node &node) {return (os << node.data);}
 };
 
 #ifndef STACK_H
