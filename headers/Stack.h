@@ -2,12 +2,6 @@
 #include <assert.h>
 using namespace std;
 
-template <typename Type>
-struct Node 
-{
-    Type data;
-    Node *link;
-};
 
 #ifndef STACK_H
 #define STACK_H
