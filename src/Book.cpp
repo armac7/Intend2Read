@@ -10,6 +10,8 @@ void Book::copy(const Book &book)
 }
 Book::Book() 
 {
+    cout << endl;
+    cout << "************************************" << endl;
     cout << "Enter the book title." << endl;
     getline(cin, this->title);
     cout << "Enter the author." << endl;
@@ -17,6 +19,7 @@ Book::Book()
     cout << "Enter the ISBN." << endl;
     getline(cin, this->ISBN);
     cout << endl;
+    cout << "************************************" << endl << endl;
 }
 Book::Book(const Book &book) {copy(book);}
 void Book::setTitle(string title) {this->title = title;}
