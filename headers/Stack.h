@@ -55,6 +55,21 @@ class Stack
             bottom = nullptr;
             temp = nullptr;
         }
+        void destroyStack() 
+        {
+            Node<Type> *temp = top;
+            while (top != nullptr) 
+            {
+                temp = top->link;
+                delete top;
+                top = temp;
+            }
+            name = "null";
+            size = 0;
+            top = nullptr;
+            bottom = nullptr;
+            temp = nullptr;
+        }
         void push() // specific for Book class
         {
             Node<Type> *newNode = new Node<Type>; // creates a new node of type.
@@ -77,6 +92,7 @@ class Stack
             assert(top != nullptr);
             return top;
         }
+        int getSize() {return this->size;}
         string getName() {return this->name;}
         void operator=(const Stack &stack) {copy(stack);}
         friend ostream &operator<<(ostream &os, const Stack &stack) // Book class specific.
