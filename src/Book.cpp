@@ -10,8 +10,6 @@ void Book::copy(const Book &book)
 }
 Book::Book()
 {
-    cout << endl;
-    cout << "************************************" << endl;
     cout << "Enter the book title." << endl;
     getline(cin, this->title);
     cout << "Enter the author." << endl;
@@ -19,8 +17,6 @@ Book::Book()
     cout << "Enter the ISBN." << endl;
     getline(cin, this->ISBN);
     cout << endl;
-    cout << "************************************" << endl
-         << endl;
 }
 Book::Book(string title, string author, string isbn)
 {
@@ -38,8 +34,8 @@ string Book::getISBN() { return this->ISBN; }
 void Book::operator=(const Book &book) { copy(book); }
 ostream &operator<<(ostream &os, const Book &book)
 {
-    os << "\tTitle: " << book.title << endl
-       << "\tAuthor: " << book.author << endl
-       << "\tISBN: " << book.ISBN << endl;
+    os << book.title << endl
+       << book.author << endl
+       << book.ISBN << endl;
     return os;
 }

@@ -10,7 +10,7 @@ int menu(string);
 Node<Stack<Book *> *> *createStack(LinkedList<Stack<Book *> *> &);
 void printStacks(LinkedList<Stack<Book *> *> &ll);
 void deleteStack(LinkedList<Stack<Book *> *> &, Node<Stack<Book *> *> *&);
-Node<Stack<Book *> *> *updateActiveStack(LinkedList<Stack<Book *> *> &);
+Node<Stack<Book *> *> *updateActiveStack(LinkedList<Stack<Book *> *> &, Node<Stack<Book *> *> *); // inefficient
 Node<Stack<Book *> *> *updateActiveStack(LinkedList<Stack<Book *> *> &, string);
 void printStackTitles(Node<Stack<Book *> *> *);
 void printStackTop(Node<Stack<Book *> *> *);
@@ -36,58 +36,45 @@ int main()
         {
         case 1:
             // create stack
-            cout << endl;
-            cout << "************************************" << endl;
             activeStack = createStack(stacks);
-            cout << "************************************" << endl
-                 << endl;
             break;
         case 2:
             // delete stack
             if (stacks.getLength() == 0)
             {
-                cout << endl;
-                cout << "************************************" << endl;
-                cout << "Cannot delete from empty stack." << endl;
-                cout << "************************************" << endl
+                cout << "No Intend2Read Stacks available." << endl
                      << endl;
                 continue;
             }
             deleteStack(stacks, activeStack);
+            cout << endl;
             break;
         case 3:
             // print stack names
-            cout << endl;
-            cout << "************************************" << endl;
             if (stacks.getLength() == 0)
             {
-                cout << "No stacks currently created." << endl;
-                cout << "************************************" << endl
+                cout << "No Intend2Read Stacks available." << endl
                      << endl;
                 continue;
             }
             printStacks(stacks);
-            cout << "************************************" << endl
-                 << endl;
+            cout << endl;
             break;
         case 4:
             // update active stack
-            cout << endl;
-            cout << "************************************" << endl;
             if (stacks.getLength() == 0)
             {
-                cout << "No stacks currently created." << endl;
-                cout << "************************************" << endl
+                cout << "***Select a Stack by Number:***" << endl
+                     << "No Intend2Read Stacks available." << endl
                      << endl;
                 continue;
             }
-            activeStack = updateActiveStack(stacks);
-            cout << "************************************" << endl
-                 << endl;
+            activeStack = updateActiveStack(stacks, activeStack);
             break;
         case 5:
             // load books from file
             addBookFile(activeStack);
+            cout << endl;
             break;
         case 6:
             // add book to stack
@@ -95,11 +82,7 @@ int main()
             break;
         case 7:
             // print stack titles
-            cout << endl;
-            cout << "************************************" << endl;
             printStackTitles(activeStack);
-            cout << "************************************" << endl
-                 << endl;
             break;
         case 8:
             // print stack top
@@ -108,6 +91,7 @@ int main()
         case 9:
             // remove book
             removeBook(activeStack);
+            cout << endl;
             break;
         case -1:
             // quit
@@ -170,8 +154,7 @@ void deleteStack(LinkedList<Stack<Book *> *> &ll, Node<Stack<Book *> *> *&node)
     // prints stacks and gets user input for which one to remove.
     int userChoice;
     cout << endl;
-    cout << "************************************" << endl;
-    cout << "Select A Stack by Number to Delete:" << endl;
+    cout << "***Select A Stack by Number to Delete:***" << endl;
     printStacks(ll);
     cin >> userChoice;
 
@@ -187,13 +170,8 @@ void deleteStack(LinkedList<Stack<Book *> *> &ll, Node<Stack<Book *> *> *&node)
             node = nullptr;
         ll.remove(userChoice);
         // if (getName(current) == getName(node)) node = nullptr;
-        cout << endl
-             << "Stack \"" << userChoice << "\" has been deleted." << endl
-             << endl;
+        cout << "Stack " << userChoice << " has been deleted." << endl;
     }
-    cout << "************************************" << endl
-         << endl;
-
     // return node;
 }
 Node<Stack<Book *> *> *updateActiveStack(LinkedList<Stack<Book *> *> &ll, string name) // updates the current active stack.
@@ -212,19 +190,16 @@ Node<Stack<Book *> *> *updateActiveStack(LinkedList<Stack<Book *> *> &ll, string
         stack = ll.search(name);
         if (stack == nullptr)
         {
-            cout << endl
-                 << "Invalid selection. No stack found named " << name << "." << endl;
-            cout << "************************************" << endl;
+            cout << "Invalid selection. No stack found named " << name << "." << endl;
+            cout << endl;
             continue;
         }
         else
             valid = true;
     }
-    cout << "************************************" << endl
-         << endl;
     return stack;
 }
-Node<Stack<Book *> *> *updateActiveStack(LinkedList<Stack<Book *> *> &ll) // updates the current active stack.
+Node<Stack<Book *> *> *updateActiveStack(LinkedList<Stack<Book *> *> &ll, Node<Stack<Book *> *> *activeStack) // updates the current active stack.
 {
     /**
      * @brief [Updates the currently active stack with whatever choice the user wants, as long as it exists.]
@@ -237,9 +212,7 @@ Node<Stack<Book *> *> *updateActiveStack(LinkedList<Stack<Book *> *> &ll) // upd
     while (!valid)
     {
         int userChoice = 0;
-        cout << endl;
-        cout << "************************************" << endl;
-        cout << "Select A Stack by Number:" << endl;
+        cout << "***Select A Stack by Number:***" << endl;
         printStacks(ll);
         cout << "-1 to CANCEL." << endl;
         cin >> userChoice;
@@ -247,6 +220,8 @@ Node<Stack<Book *> *> *updateActiveStack(LinkedList<Stack<Book *> *> &ll) // upd
         // checks if user choice is found in list. If not, reset loop. If so, return the address of the node.
         if (userChoice == -1)
         {
+            cout << "Active Stack NOT Updated." << endl;
+            stack = activeStack;
             valid = true;
             break;
         }
@@ -259,16 +234,14 @@ Node<Stack<Book *> *> *updateActiveStack(LinkedList<Stack<Book *> *> &ll) // upd
         stack = ll.search(userChoice);
         if (stack == nullptr)
         {
-            cout << endl
-                 << "Invalid selection. No stack at position " << userChoice << "." << endl;
-            cout << "************************************" << endl;
+            cout << "Invalid selection. No stack at position " << userChoice << "." << endl;
+            cout << endl;
             continue;
         }
         else
             valid = true;
     }
-    cout << "************************************" << endl
-         << endl;
+    cout << endl;
     return stack;
 }
 void addBook(Node<Stack<Book *> *> *node)
@@ -339,17 +312,16 @@ void printStackTitles(Node<Stack<Book *> *> *node)
      * @param node [A node containing a pointer to a stack containing pointers to books.]
      */
     if (node == nullptr)
-    {
-        cout << "Cannot print titles for empty stack." << endl;
-    }
+        cout << "Stack is empty." << endl
+             << endl;
     else if (node->data->getSize() == 0)
     {
-        cout << "Stack is empty." << endl;
+        cout << "Titles for Stack: " << node->data->getName() << endl;
+        cout << "Stack is empty." << endl
+             << endl;
     }
     else
-    {
         cout << *node->data << endl;
-    }
 }
 void printStackTop(Node<Stack<Book *> *> *node)
 {
@@ -359,27 +331,19 @@ void printStackTop(Node<Stack<Book *> *> *node)
      */
     if (node == nullptr)
     {
-        cout << endl;
-        cout << "************************************" << endl;
         cout << "Cannot print top book of an empty stack." << endl;
-        cout << "************************************" << endl
-             << endl;
+        cout << endl;
     }
     else if (node->data->getSize() == 0)
     {
-        cout << endl;
-        cout << "************************************" << endl;
         cout << "Cannot print top book of an empty stack." << endl;
-        cout << "************************************" << endl
-             << endl;
+        cout << endl;
     }
     else
     {
-        cout << endl;
-        cout << "************************************" << endl;
+        cout << "Book on Top of " << node->data->getName() << " stack:" << endl;
         cout << *node->data->getTop()->data;
-        cout << "************************************" << endl
-             << endl;
+        cout << endl;
     }
 }
 void removeBook(Node<Stack<Book *> *> *node)

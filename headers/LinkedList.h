@@ -160,7 +160,6 @@ public:
     friend ostream &operator<<(ostream &os, const LinkedList &ll)
     {
         Node<Type> *current = ll.first;
-        os << "Stacks:" << endl;
         int i = 1;
         while (current != nullptr)
         {
